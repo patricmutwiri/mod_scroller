@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.1.0" client="administration" method="upgrade">
+	<name>Marquee Load</name>
+	<author>Patrick Mutwiri</author>
+	<version>1.0.0</version>
+	<description>Load news in a scroller</description>
+	<files folder="site">
+		<filename>index.html</filename>
+		<filename>mod_scroller.php</filename>
+		<filename module="mod_scroller">mod_scroller.php</filename>
+		<filename>index.html</filename>
+		<filename>helper.php</filename>
+		<filename>tmpl/default.php</filename>
+		<filename>tmpl/index.html</filename>
+	</files>
+ 
+	<administration>
+		<files folder="admin">
+			<filename>mod_scroller.xml</filename>
+			<folder>sql</folder>
+		</files>
+	</administration>
+	<folder>sql</folder> 
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="lang" type="sql" default="1" label="Select a language" query="SELECT * FROM #__scroller" />
+				<field name="catid" type="sql" default="1" label="Select a Category" query="SELECT * from #__categories WHERE published = 1 and extension = 'com_content'" key_field="id" value_field="title">
+					<option>Select Category</option>
+				</field>
+
+			</fieldset>
+		</fields>
+	</config>
+
+	<install>
+		<sql>
+			<file driver="mysql" charset="utf8">sql/mysql/install.mysql.utf8.sql</file>
+		</sql>
+	</install>
+
+	<uninstall>
+		<sql>
+			<file driver="mysql" charset="utf8">sql/mysql/uninstall.mysql.utf8.sql</file>
+		</sql>
+	</uninstall>
+
+	<update>
+		<schemas>
+			<schemapath type="mysql">sql/mysql/updates</schemapath>
+		</schemas>
+	</update>
+</extension>
